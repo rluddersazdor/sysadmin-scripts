@@ -1,0 +1,10 @@
+#!/bin/bash
+TIMESTAMP=`date`
+echo $TIMESTAMP > ~/bin/LinuxStatusReport.txt
+echo "File Systems > 90%" >>  ~/bin/LinuxStatusReport.txt
+while read HOST; do echo "" | ssh -q $HOST "hostname && df -h | egrep '9[0-9]{1}%|100%'"; done < ~/bin/serverlist >> ~/bin/LinuxStatusReport.txt
+echo "" >>  ~/bin/LinuxStatusReport.txt
+echo "Uptime and System Load" >> ~/bin/LinuxStatusReport.txt 
+while read HOST; do echo "" | ssh -q $HOST "hostname && w | grep load"; done < ~/bin/serverlist >> ~/bin/LinuxStatusReport.txt
+mailx -s"Linux Status Check" email@mydomain.com < ~/bin/LinuxStatusReport.txt
+exit
