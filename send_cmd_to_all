@@ -1,0 +1,2 @@
+while read HOST ; do echo "" | ssh -q $HOST "hostname && lvs | grep lv_var_log" ; done < serverlist
+

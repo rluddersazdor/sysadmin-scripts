@@ -1,0 +1,69 @@
+#!/bin/bash
+# Script to update the Satelite Client to the lastest version.
+#
+# Check OS level
+OSLEVEL=`cat /etc/redhat-release` 
+echo -e "\e[0;36m$OSLEVEL\e[0m"
+
+if grep -q -i "release 6" /etc/redhat-release
+then
+  echo -e "\e[0;36mRunning RHEL 6\e[0m"
+  echo ""
+  echo  -e "\e[0;36mRemove Old Repo if Installed\e[0m"
+    subscription-manager repos --disable rhel-6-server-satellite-tools-6.2-rpms
+  echo
+  sleep 1
+  echo -e "\e[0;36mEnable New Repo\e[0m"
+    subscription-manager repos --enable=rhel-6-server-satellite-tools-6.3-rpms
+  echo
+  sleep 1
+  echo -e "\e[0;36mUpdate Client\e[0m"
+   yum -y upgrade katello-agent katello-host-tools katello-host-tools-fact-plugin pulp-rpm-handlers  qpid-proton-c
+  echo
+  sleep 1
+  echo -e "\e[0;36mRestart Service\e[0m"
+  service goferd restart
+  echo ""
+
+
+elif grep -q -i "release 7" /etc/redhat-release
+then
+  echo -e "\e[0;36mRunning RHEL 7\e[0m"
+  echo ""
+  echo  -e "\e[0;36mRemove Old Repo if Installed\e[0m"
+    subscription-manager repos --disable rhel-7-server-satellite-tools-6.2-rpms
+  echo
+  sleep 1
+  echo -e "\e[0;36mEnable New Repo\e[0m"
+    subscription-manager repos --enable=rhel-7-server-satellite-tools-6.3-rpms
+  echo
+  sleep 1
+  echo -e "\e[0;36mUpdate Client\e[0m"
+   yum -y upgrade katello-agent katello-host-tools katello-host-tools-fact-plugin pulp-rpm-handlers  qpid-proton-c
+  echo
+  sleep 1
+  echo -e "\e[0;36mRestart Service\e[0m"
+  systemctl restart goferd
+  systemctl status goferd
+  echo ""
+
+else
+  echo -e "\e[0;31mError validating OS\e[0m"
+fi
+exit
+
+#ANSI Escape Codes:
+#Black        0;30     Dark Gray     1;30
+#Red          0;31     Light Red     1;31
+#Green        0;32     Light Green   1;32
+#Brown/Orange 0;33     Yellow        1;33
+#Blue         0;34     Light Blue    1;34
+#Purple       0;35     Light Purple  1;35
+#Cyan         0;36     Light Cyan    1;36
+#Light Gray   0;37     White         1;37
+#
+#Example: echo -e "\e[0;31mThis is red text\e[0m"
+
+
+
+

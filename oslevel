@@ -1,0 +1,2 @@
+OSLEVEL=`cat /etc/redhat-release`
+echo -e "\e[0;36m$OSLEVEL\e[0m"

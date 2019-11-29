@@ -1,0 +1,8 @@
+TODAY=$(date)
+HOST=$(hostname)
+echo -e "\e[0;36m-----------------------------------------------------\e[0m"
+echo -e "\e[0;36mDate: $TODAY\e[0m"
+echo -e "\e[0;36mHost: $HOST\e[0m"
+echo -e "\e[0;36m-----------------------------------------------------\e[0m"
+cat /etc/passwd | cut -d : -f 1 | awk '{ system("passwd -S " $0) }'
+echo ""

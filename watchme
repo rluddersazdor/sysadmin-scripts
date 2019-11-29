@@ -1,0 +1,162 @@
+#!/bin/bash
+OSLEVEL=`cat /etc/redhat-release`
+#
+#
+while true
+do
+echo -e "\e[0;36m$OSLEVEL\e[0m"
+echo ""
+echo -e "\e[0;36m### Logged in Users ###\e[0m"
+who
+sleep 7
+echo ""
+echo -e "\e[0;36m### Access Log ###\e[0m"
+tail /var/log/secure
+sleep 7
+echo ""
+echo -e "\e[0;36m### System Log ###\e[0m"
+tail /var/log/messages
+sleep 7
+echo ""
+echo -e "\e[0;36m### Mail Log ###\e[0m"
+tail /var/log/maillog
+sleep 7
+echo ""
+echo -e "\e[0;36m### Audit Log ###\e[0m"
+tail /var/log/audit/audit.log
+sleep 7
+echo ""
+echo -e "\e[0;36m### Yum Log ###\e[0m"
+tail /var/log/yum.log
+sleep 7
+echo ""
+echo -e "\e[0;36m### SSH Log ###\e[0m"
+tail /var/log/ssh.log
+sleep 7
+echo ""
+echo -e "\e[0;36m### Established Network Connections ###\e[0m"
+netstat -tanp | grep ESTABLISHED
+sleep 7
+echo ""
+echo -e "\e[0;36m### Number of Processes ###\e[0m"
+ps -ef | wc -l
+sleep 7
+echo ""
+echo -e "\e[0;36m### File Systems ###\e[0m"
+df -h
+sleep 7
+echo ""
+echo -e "\e[0;36m### Physcial Volumes ###\e[0m"
+pvs
+sleep 7
+echo ""
+echo -e "\e[0;36m### Logical Volumes ###\e[0m"
+lvs
+sleep 7
+echo ""
+echo -e "\e[0;36m### System Resource Usage ###\e[0m"
+sar -s
+sleep 7
+echo ""
+echo -e "\e[0;36m### System Uptime ###\e[0m"
+uptime
+sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+#echo ""
+#echo -e "\e[0;36m### Kernal Messages ###\e[0m"
+#dmesg --color
+#sleep 7
+
+
+### 
+#clear
+done
+
+
+
+#ANSI Escape Codes:
+#Black        0;30     Dark Gray     1;30
+#Red          0;31     Light Red     1;31
+#Green        0;32     Light Green   1;32
+#Brown/Orange 0;33     Yellow        1;33
+#Blue         0;34     Light Blue    1;34
+#Purple       0;35     Light Purple  1;35
+#Cyan         0;36     Light Cyan    1;36
+#Light Gray   0;37     White         1;37
+#
+#Example: echo -e "\e[0;31mThis is red text\e[0m"

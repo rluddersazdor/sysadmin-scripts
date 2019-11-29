@@ -1,0 +1,34 @@
+#!/bin/bash
+#Script to check for any hung process for the WebLogic Reports and send text notification. Created 1/18/2019 Roger Ludders.
+> count.txt
+> count-email.txt
+COUNT=echo | (read foo; ps -ef | grep -v grep| grep rwclient | wc -l;) > ~/bin/count.txt
+READCOUNT=`cat ~/bin/count.txt`
+if  [ $READCOUNT -gt 2 ]; then
+        echo "$HOSTNAME rwclient count is at $READCOUNT" > count-email.txt
+        mail -sWebLogic-Check 6235704748@tmomail.net < count-email.txt
+else
+        echo "Good"
+fi
+
+
+#!/bin/bash
+COUNT=echo | (read foo; ps -ef | grep -v grep| grep rwclient | wc -l;) > ~/bin/count.txt
+READCOUNT=`cat ~/bin/count.txt`
+echo $READCOUNT
+
+
+#!/bin/bash
+#Script to check for any hung process for the WebLogic Reports and send text notification. Created 1/18/2019 Roger Ludders.
+> count.txt
+> count-email.txt
+COUNT=echo | (read foo; ps -ef | grep -v grep| grep rwclient | wc -l;)
+echo $COUNT
+
+if  [[ "$COUNT" -gt "2" ]]
+then
+        echo "$HOSTNAME rwclient count is at $COUNT" > count-email.txt
+        mail -sWebLogic-Check 6235704748@tmomail.net < count-email.txt
+else
+        echo "Good"
+fi
