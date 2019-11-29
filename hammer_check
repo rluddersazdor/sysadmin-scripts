@@ -1,0 +1,4 @@
+#!/bin/bash
+hammer ping > ~/bin/hammer.status
+output="$(grep FAIL ~/bin/hammer.status)"
+test -n "$output" && echo "$output" | mailx -s "Hammer Ping Failure"  -r "Satellite Server<noreply@mydomain.com>" email@mydomain.com < ~/bin/hammer.status
