@@ -1,0 +1,2 @@
+### Run SSH command to multiple servers from a list
+while read HOST; do echo "" | ssh -q $HOST "oslevel && "/opt/nessus_agent/sbin/nessuscli agent status --local" && echo"""; done < serverlist
