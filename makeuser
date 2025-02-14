@@ -3,6 +3,7 @@
 
 # Variables
 LOGFILE="/root/user_creation.log"
+echo $(date) >> $LOGFILE
 #EMAIL="sysadmin@email.com"  # Change to your system administrator's email
 
 # Function to get user input
