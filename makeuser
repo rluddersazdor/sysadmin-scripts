@@ -55,7 +55,7 @@ id "$USERNAME"
 # Log the output
 echo ""
 echo "############### SFTP Account Details ###############"
-OUTPUT="\n$FULLNAME\nSFTP Server: sftp.azdor.gov\nUsername: $USERNAME\nPassword: $PASSWORD\nConnection Type: SSH/SFTP\n"
+OUTPUT="\n$FULLNAME\nSFTP Server: server.name.com\nUsername: $USERNAME\nPassword: $PASSWORD\nConnection Type: SSH/SFTP\n"
 echo -e "$OUTPUT" |  tee -a "$LOGFILE"
 echo "####################################################"
 echo ""
