@@ -1,0 +1,63 @@
+#!/bin/bash
+# Script to create local accounts for SFTP users
+
+# Variables
+LOGFILE="/root/user_creation.log"
+#EMAIL="sysadmin@email.com"  # Change to your system administrator's email
+
+# Function to get user input
+read -e -p "Enter full name: " FULLNAME
+read -e -p "Enter username: " USERNAME
+read -e -p "Enter group: " GROUP
+
+generate_password() {
+    # Define character sets
+    UPPERCASE=$(tr -dc 'A-Z' < /dev/urandom | head -c1)   # At least 1 uppercase letter
+    LOWERCASE=$(tr -dc 'a-z' < /dev/urandom | head -c1)   # At least 1 lowercase letter
+    NUMBER=$(tr -dc '0-9' < /dev/urandom | head -c1)      # At least 1 number
+    SPECIAL=$(tr -dc '!@#$%^&*()-_=+' < /dev/urandom | head -c1)  # At least 1 special character
+
+    # Generate remaining random characters (9 more to make it 14 total)
+    REMAINING=$(tr -dc 'A-Za-z0-9!@#$%^&*()-_=+' < /dev/urandom | head -c10)
+
+    # Combine all parts and shuffle
+    PASSWORD=$(echo "$UPPERCASE$LOWERCASE$NUMBER$SPECIAL$REMAINING" | fold -w1 | shuf | tr -d '\n')
+
+    echo "$PASSWORD"
+}
+
+# Generate a strong password
+PASSWORD=$(generate_password)
+
+# Generate a random password
+#PASSWORD=$(openssl rand -base64 18 | tr -dc 'A-Za-z0-9@#$%^&*()-_=+' | head -c 14)
+
+# Create the user
+useradd -m -c "$FULLNAME" -s /usr/libexec/openssh/sftp-server "$USERNAME"
+
+# Assign groups if provided
+if [[ ! -z "$GROUPS" ]]; then
+     usermod -a -G "$GROUP" "$USERNAME"
+fi
+
+# Set the password
+echo "$USERNAME:$PASSWORD" |  chpasswd
+
+# Set password to never expire
+chage -M -1 "$USERNAME"
+
+echo ""
+#echo "Local user account $USERNAME was created successfully."
+echo "Account $USERNAME created: $(date)"
+#id "$USERNAME"
+
+# Log the output
+echo ""
+echo "############### SFTP Account Details ###############"
+OUTPUT="\n$FULLNAME\nSFTP Server: sftp.azdor.gov\nUsername: $USERNAME\nPassword: $PASSWORD\nConnection Type: SSH/SFTP\n"
+echo -e "$OUTPUT" |  tee -a "$LOGFILE"
+echo "####################################################"
+echo ""
+
+# Email the log to the administrator
+#echo -e "$OUTPUT" | mail -s "SFTP account created on $(hostname): $USERNAME" "$EMAIL"
