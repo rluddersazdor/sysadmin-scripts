@@ -49,7 +49,7 @@ chage -M -1 "$USERNAME"
 echo ""
 #echo "Local user account $USERNAME was created successfully."
 echo "Account $USERNAME created: $(date)"
-#id "$USERNAME"
+id "$USERNAME"
 
 # Log the output
 echo ""
